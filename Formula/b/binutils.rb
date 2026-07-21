@@ -33,19 +33,21 @@ class Binutils < Formula
 
   def install
     args = %W[
+      --disable-nls
+      --disable-werror
+      --enable-64-bit-bfd
       --enable-deterministic-archives
+      --enable-multilib
+      --enable-plugins
+      --enable-shared
+      --enable-targets=all
       --infodir=#{info}
       --mandir=#{man}
-      --disable-werror
-      --enable-interwork
-      --enable-multilib
-      --enable-64-bit-bfd
-      --enable-plugins
-      --enable-targets=all
+      --with-bugurl=#{tap.issues_url}
       --with-system-zlib
       --with-zstd
-      --disable-nls
     ]
+
     system "./configure", *args, *std_configure_args
     system "make"
     system "make", "install"
